@@ -1,0 +1,11 @@
+{
+  "name": "langgraph-demo",
+  "version": "1.0.0",
+  "description": "A simple LangGraph.js demo application",
+  "type": "module",
+  "dependencies": {
+    "@langchain/core": "^0.3.58",
+    "@langchain/langgraph": "^0.4.0",
+    "@langchain/openai": "^0.0.10"
+  }
+}

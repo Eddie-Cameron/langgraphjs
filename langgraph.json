@@ -1,0 +1,15 @@
+{
+  "node_version": "20",
+  "dockerfile_lines": [],
+  "dependencies": ["."],
+  "graphs": { "langgraph_api": "./libs/langgraph-api/src/index.js:app" },
+  "env": {
+    "SUPABASE_DB_URL": "postgresql://postgres:postgres@supabase-langgraph:5432/langgraph",
+    "SUPABASE_JWT_SECRET": "changeme_jwt_secret",
+    "SUPABASE_SERVICE_ROLE_KEY": "changeme_service_key",
+    "OPENAI_API_KEY": "changeme_openai",
+    "ANTHROPIC_API_KEY": "changeme_anthropic",
+    "GOOGLE_API_KEY": "changeme_google",
+    "REDIS_URL": "redis://langgraph-redis:6379"
+  }
+}
