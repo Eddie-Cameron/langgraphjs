@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  langgraph-api:
+    build: .  # Use the Dockerfile in the current directory
+    container_name: langgraph-api
+    ports:
+      - "8123:8000"  # Only expose API port
+    env_file:
+      - .env  # Default env file, can be overridden with docker-compose --env-file
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1g
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Allow access to host machine
+    user: "node:node"  # Run as non-root user
+    restart: unless-stopped  # Automatically restart container
+
+  redis:
+    image: redis:6.2.14-alpine  # Pin to specific version
+    container_name: langgraph-redis
+    # No port mapping - Redis only accessible within Docker network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512m
+    user: "1000:1000"  # Run as non-root user
+    restart: unless-stopped
+    command: redis-server --appendonly yes  # Enable persistence
+    volumes:
+      - redis-data:/data  # Persist Redis data
+
+networks:
+  default:
+    driver: bridge
+    internal: false  # Allow external connections (for API)
+
+volumes:
+  redis-data:  # Define volume for Redis data persistence
